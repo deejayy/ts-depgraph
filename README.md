@@ -19,4 +19,4 @@ ts-depgraph
 
 ## Open depgraph.html
 
-![](screenshot/shot-01.png)
+![](https://github.com/deejayy/ts-depgraph/raw/master/screenshot/shot-01.png)

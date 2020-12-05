@@ -1,12 +1,12 @@
 var fs = require("fs");
 var fspath = require("path");
+var config = require("./depgraph.config");
 
-const sourceDirectory = "W:/missster/mst5";
-//const sourceDirectory = "testdir";
+const sourceDirectory = config.projectDirectory;
 const sourceDirectoryRegex = new RegExp(`${sourceDirectory}/src/`);
 
-const includePattern = new RegExp(".ts$");
-const excludePattern = new RegExp(".spec.ts$");
+const includePattern = new RegExp(config.includePattern || ".ts$");
+const excludePattern = new RegExp(config.excludePattern || ".spec.ts$");
 
 function getFileList(path) {
   const getSourceFiles = (files) =>
@@ -29,8 +29,8 @@ function getFileList(path) {
 }
 
 function getTsConfigPaths(path) {
-  const tsconfig = require(`${path}/tsconfig.json`);
-  const paths = tsconfig.compilerOptions.paths;
+  const tsconfig = require(config.tsconfig || `${path}/tsconfig.json`);
+  const paths = tsconfig && tsconfig.compilerOptions && tsconfig.compilerOptions.paths || [];
   const mapping = {};
 
   Object.keys(paths).map((alias) => {
@@ -50,8 +50,9 @@ function getImports(file) {
     .readFileSync(file, { encoding: "UTF-8" })
     .replace(/[\r\n]/gi, " ");
   const nodes = content.match(/import\s+.*?\s+from\s+.*?;/gim) || [];
-  // const inlineImports = content.match(/import\((.*?)\).*/);
+  // TODO Lazy loading of modules in an Angular project
   // import('./landing.module').then((m) => m.LandingModule),
+  // const inlineImports = content.match(/import\((.*?)\).*/);
   return nodes;
 }
 

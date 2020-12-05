@@ -1,6 +1,6 @@
 {
   "name": "ts-depgraph",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "main": "bin.js",
   "license": "MIT",
   "bin": {
@@ -14,7 +14,7 @@
   },
   "bundleDependencies": false,
   "deprecated": false,
-  "description": "A preprocessor with source maps support to help use TypeScript with Jest",
+  "description": "Generate a visually stunning dependency graph from your Angular or Typescript project",
   "engines": {
     "node": ">= 10"
   },

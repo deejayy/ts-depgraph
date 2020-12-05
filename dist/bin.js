@@ -1,8 +1,17 @@
 var fs = require("fs");
 var fspath = require("path");
-var config = require.resolve("./depgraph.config");
+var config = {};
 
-const sourceDirectory = config.projectDirectory;
+try {
+  config = require("./depgraph.config");
+} catch {
+  console.warn(
+    'No local "depgraph.config" found. You can control the behaviour with it if you want. Check package folder for example.'
+  );
+}
+
+const sourceDirectory =
+  config.projectDirectory || process.cwd().replace(/\\/g, "/");
 const sourceDirectoryRegex = new RegExp(`${sourceDirectory}/src/`);
 
 const includePattern = new RegExp(config.includePattern || ".ts$");
@@ -29,9 +38,18 @@ function getFileList(path) {
 }
 
 function getTsConfigPaths(path) {
-  const tsconfig = require(config.tsconfig || `${path}/tsconfig.json`);
-  const paths = tsconfig && tsconfig.compilerOptions && tsconfig.compilerOptions.paths || [];
   const mapping = {};
+  let tsconfig = {};
+
+  try {
+    tsconfig = require(config.tsconfig || `${path}/tsconfig.json`);
+  } catch {
+    return mapping;
+  }
+
+  const paths =
+    (tsconfig && tsconfig.compilerOptions && tsconfig.compilerOptions.paths) ||
+    [];
 
   Object.keys(paths).map((alias) => {
     const pattern = alias.replace(/\*$/, "");
@@ -99,16 +117,16 @@ function parseImport(imp, path) {
 
 function getNodeColor(path) {
   if (path.match(/module$/)) {
-    return '#ffcfcf';
+    return "#ffcfcf";
   }
   if (path.match(/component$/)) {
-    return '#cfffcf';
+    return "#cfffcf";
   }
   if (path.match(/service$/)) {
-    return '#ffcfff';
+    return "#ffcfff";
   }
   if (path.match(/(effects?|selectors?|actions?|reducers?|state|facade)$/)) {
-    return '#cfcfcf';
+    return "#cfcfcf";
   }
 
   return undefined;
@@ -177,5 +195,13 @@ const graph = fileList
 const nodes = createNodes(graph);
 const edges = createEdges(graph);
 
-console.log("const nodes = ", JSON.stringify(nodes), ';');
-console.log("const edges = ", JSON.stringify(edges), ';');
+fs.writeFileSync("depgraph.data.js", `\
+const nodes = ${JSON.stringify(nodes)};
+const edges = ${JSON.stringify(edges)};
+`);
+
+const runtime = fspath.dirname(process.argv[1].replace(/\\/g, "/"));
+
+fs.copyFileSync(`${runtime}/depgraph.html`, "./depgraph.html");
+
+console.log("Open depgraph.html to view the dependency graph");

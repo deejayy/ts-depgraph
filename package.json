@@ -1,10 +1,16 @@
 {
   "name": "ts-depgraph",
-  "version": "0.5.6",
-  "main": "dist/bin.js",
+  "version": "0.6.0",
+  "main": "bin.js",
   "license": "MIT",
   "bin": {
-    "ts-depgraph": "dist/bin.js"
+    "ts-depgraph": "bin.js"
+  },
+  "scripts": {
+    "release": "npm publish . --access public"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "bundleDependencies": false,
   "deprecated": false,

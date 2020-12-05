@@ -1,0 +1,51 @@
+<html>
+
+<head>
+  <title>Typescript dependency graph</title>
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    #depgraph {
+      width: 98vw;
+      height: 98vh;
+      margin: auto;
+      border: 1px solid lightgray;
+    }
+  </style>
+  <script src="https://visjs.github.io/vis-network/standalone/umd/vis-network.min.js"></script>
+  <script src="dep-graph.js"></script>
+</head>
+
+<body>
+  <div id="depgraph"></div>
+  <br />
+  <script type="text/javascript">
+    const options = {
+      manipulation: true,
+      autoResize: true,
+      height: "100%",
+      physics: {
+        enabled: true,
+        solver: 'barnesHut',
+        barnesHut: {
+          theta: 0.5,
+          gravitationalConstant: -5000,
+          centralGravity: 0.1,
+          springLength: 150,
+          springConstant: 0.01,
+          damping: 0.1,
+          avoidOverlap: 0
+        },
+      },
+    };
+    var container = document.getElementById("depgraph");
+    var data = { nodes: nodes, edges: edges };
+    var gph = new vis.Network(container, data, options);
+  </script>
+</body>
+
+</html>

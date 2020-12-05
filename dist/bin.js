@@ -1,6 +1,6 @@
 var fs = require("fs");
 var fspath = require("path");
-var config = require("./depgraph.config");
+var config = require.resolve("./depgraph.config");
 
 const sourceDirectory = config.projectDirectory;
 const sourceDirectoryRegex = new RegExp(`${sourceDirectory}/src/`);

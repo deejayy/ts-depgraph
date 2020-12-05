@@ -1,0 +1,23 @@
+{
+  "name": "ts-depgraph",
+  "version": "0.5.6",
+  "main": "dist/bin.js",
+  "license": "MIT",
+  "bin": {
+    "ts-depgraph": "dist/bin.js"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "A preprocessor with source maps support to help use TypeScript with Jest",
+  "engines": {
+    "node": ">= 10"
+  },
+  "homepage": "https://github.com/deejayy/ts-depgraph",
+  "keywords": [
+    "typescript",
+    "angular",
+    "dependency",
+    "graph",
+    "vis.js"
+  ]
+}

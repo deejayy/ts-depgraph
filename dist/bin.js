@@ -43,7 +43,8 @@ function getTsConfigPaths(path) {
 
   try {
     tsconfig = require(config.tsconfig || `${path}/tsconfig.json`);
-  } catch {
+  } catch (error) {
+    console.warn('tsconfig failed to load: ', error);
     return mapping;
   }
 

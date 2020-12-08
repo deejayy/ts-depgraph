@@ -7,6 +7,7 @@
       margin: 0;
       padding: 0;
       display: flex;
+      background-color: rgb(255, 255, 255);
     }
 
     #depgraph {
@@ -15,12 +16,43 @@
       margin: auto;
       border: 1px solid lightgray;
     }
+
+    .switch {
+      position: absolute;
+      left: 25px;
+      top: 50px;
+      z-index: 10;
+    }
+
+    .switch button {
+      outline: none;
+      font-family: verdana;
+      font-size: 12px;
+      background-color: #fcfcfc;
+      border: 1px solid #ccc;
+      border-radius: 15px;
+      display: inline-block;
+      height: 24px;
+      cursor: pointer;
+      padding: 0 8px;
+    }
   </style>
   <script src="https://visjs.github.io/vis-network/standalone/umd/vis-network.min.js"></script>
   <script src="depgraph.data.js"></script>
+  <script>
+    function switchColor() {
+      document.getElementById('body').style.backgroundColor =
+      getComputedStyle(document.getElementById('body')).backgroundColor == 'rgb(16, 16, 32)' ? 'rgb(255, 255, 255)' : 'rgb(16, 16, 32)';
+    }
+  </script>
 </head>
 
-<body>
+<body id="body">
+  <div class="switch">
+    <button onClick="switchColor()">
+      Light/Dark
+    </button>
+  </div>
   <div id="depgraph"></div>
   <br />
   <script type="text/javascript">

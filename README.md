@@ -4,6 +4,10 @@ Uses vis.js, check it out, it's pretty cool.
 
 # Usage
 
+```sh
+npm install -g ts-depgraph
+```
+
 ## Customize ```depgraph.config.js``` if you want
 
 You can check the example in the package directory (```depgraph.config.js.example```) or you can leave it out completely, default starting folder is the current.
@@ -20,3 +24,7 @@ ts-depgraph
 ## Open depgraph.html
 
 ![](https://github.com/deejayy/ts-depgraph/raw/master/screenshot/shot-01.png)
+
+Dark mode, yay!
+
+![](https://github.com/deejayy/ts-depgraph/raw/master/screenshot/shot-02.png)

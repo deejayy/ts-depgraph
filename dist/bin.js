@@ -201,7 +201,7 @@ const nodes = ${JSON.stringify(nodes)};
 const edges = ${JSON.stringify(edges)};
 `);
 
-const runtime = fspath.dirname(process.argv[1].replace(/\\/g, "/"));
+const runtime = __dirname.replace(/\\/g, "/");
 
 fs.copyFileSync(`${runtime}/depgraph.html`, "./depgraph.html");
 

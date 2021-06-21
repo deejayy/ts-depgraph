@@ -3,7 +3,7 @@ var fspath = require("path");
 var config = {};
 
 try {
-  config = require("./depgraph.config");
+  config = require(process.cwd() + "/depgraph.config");
 } catch {
   console.warn(
     'No local "depgraph.config" found. You can control the behaviour with it if you want. Check package folder for example.'
